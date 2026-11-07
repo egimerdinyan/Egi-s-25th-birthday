@@ -25,40 +25,44 @@
   /* ================= ENVELOPE ================= */
   #envelope{position:fixed;inset:0;z-index:10;overflow:hidden}
   #envelope.done{pointer-events:none}
+  #envelope{perspective:1400px}
   .flap{
     position:absolute;inset:0;
-    background:var(--paper-tex),var(--env);
-    transition:transform 1.5s cubic-bezier(.65,0,.25,1) .35s,opacity 1.2s ease .6s;
+    /* rough, lit paper grain multiplied over the burgundy */
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cfilter id='p' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035 .05' numOctaves='5' seed='11' stitchTiles='stitch' result='n'/%3E%3CfeDiffuseLighting in='n' lighting-color='%23ffffff' surfaceScale='2.6' diffuseConstant='1.15'%3E%3CfeDistantLight azimuth='225' elevation='52'/%3E%3C/feDiffuseLighting%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+    background-size:420px 420px;
+    background-blend-mode:multiply;
+    transition:transform 1.6s cubic-bezier(.65,0,.25,1) .45s,opacity 1.1s ease .9s;
   }
-  .f-top   {clip-path:polygon(0 0,100% 0,50% 50%);background-color:#531320}
-  .f-bottom{clip-path:polygon(0 100%,100% 100%,50% 50%);background-color:#4d111d}
-  .f-left  {clip-path:polygon(0 0,50% 50%,0 100%);background-color:#5f1727}
-  .f-right {clip-path:polygon(100% 0,50% 50%,100% 100%);background-color:#5f1727}
-  #envelope.open .f-top   {transform:translateY(-105%) rotateX(40deg)}
+  .f-top   {clip-path:polygon(0 0,100% 0,50% 50%);background-color:#7c2431;transform-origin:50% 0}
+  .f-bottom{clip-path:polygon(0 100%,100% 100%,50% 50%);background-color:#651a27}
+  .f-left  {clip-path:polygon(0 0,50% 50%,0 100%);background-color:#70202d}
+  .f-right {clip-path:polygon(100% 0,50% 50%,100% 100%);background-color:#70202d}
+  #envelope.open .f-top   {transform:rotateX(-178deg)}
   #envelope.open .f-bottom{transform:translateY(105%)}
   #envelope.open .f-left  {transform:translateX(-105%)}
   #envelope.open .f-right {transform:translateX(105%)}
-  #envelope.open .flap{opacity:.4}
+  #envelope.open .flap{opacity:.3}
  
   /* soft vignette + diagonal fold lines */
   .folds{position:absolute;inset:0;pointer-events:none;transition:opacity .6s ease}
-  .folds::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.45) 100%)}
+  .folds::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.12) 0%,transparent 25%,transparent 55%,rgba(0,0,0,.55) 100%),radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,.35) 100%)}
   .folds svg{position:absolute;inset:0;width:100%;height:100%}
   #envelope.open .folds{opacity:0}
  
   .env-text{
     position:absolute;left:0;right:0;text-align:center;color:var(--gold-light);
-    font-family:'Noto Serif Armenian',serif;font-weight:300;letter-spacing:.08em;z-index:3;
+    font-family:'Noto Sans Armenian',sans-serif;font-weight:300;letter-spacing:.1em;z-index:3;
     transition:opacity .6s ease;text-shadow:0 1px 2px rgba(0,0,0,.4);
   }
-  .env-top{top:9%;font-size:clamp(1.5rem,6.4vw,2.2rem);line-height:1.5;padding:0 28px}
-  .env-bottom{bottom:17%;font-size:clamp(1.5rem,6.4vw,2rem);cursor:pointer;animation:pulse 2s ease-in-out infinite;background:none;border:none;font-family:inherit;color:inherit}
+  .env-top{top:5%;font-size:clamp(1.5rem,6.2vw,2.2rem);line-height:1.5;padding:0 28px}
+  .env-bottom{bottom:24%;font-size:clamp(1.5rem,6.4vw,2rem);cursor:pointer;animation:pulse 2s ease-in-out infinite;background:none;border:none;font-family:inherit;color:inherit}
   @keyframes pulse{50%{opacity:.45}}
   #envelope.open .env-text{opacity:0;animation:none}
  
   /* wax seal */
   .seal{
-    position:absolute;left:50%;top:50%;width:min(40vw,190px);margin:calc(min(40vw,190px) / -2) 0 0 calc(min(40vw,190px) / -2);
+    position:absolute;left:50%;top:50%;width:min(38vw,180px);margin:calc(min(38vw,180px) / -2) 0 0 calc(min(38vw,180px) / -2);
     z-index:4;cursor:pointer;transition:transform .9s cubic-bezier(.5,0,.3,1),opacity .7s ease;
     filter:drop-shadow(0 10px 14px rgba(0,0,0,.55));
     animation:sealpulse 2.6s ease-in-out infinite;
@@ -176,23 +180,41 @@
  
   <svg class="seal" id="seal" viewBox="0 0 200 200">
     <defs>
-      <radialGradient id="gold" cx="35%" cy="30%" r="80%">
-        <stop offset="0" stop-color="#f3d99b"/><stop offset=".45" stop-color="#c9a15f"/><stop offset="1" stop-color="#8d6a33"/>
+      <radialGradient id="gold" cx="35%" cy="28%" r="85%">
+        <stop offset="0" stop-color="#f4dc9e"/><stop offset=".4" stop-color="#d2a85f"/><stop offset=".8" stop-color="#a97c3a"/><stop offset="1" stop-color="#7f5a25"/>
       </radialGradient>
-      <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
-        <feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="4" result="t"/>
-        <feDisplacementMap in="SourceGraphic" in2="t" scale="14"/>
+      <radialGradient id="gold2" cx="40%" cy="32%" r="80%">
+        <stop offset="0" stop-color="#e9c983"/><stop offset=".6" stop-color="#c79c52"/><stop offset="1" stop-color="#a47835"/>
+      </radialGradient>
+      <filter id="rough" x="-12%" y="-12%" width="124%" height="124%">
+        <feTurbulence type="fractalNoise" baseFrequency=".03" numOctaves="3" seed="9" result="t"/>
+        <feDisplacementMap in="SourceGraphic" in2="t" scale="16"/>
       </filter>
-      <filter id="inset">
-        <feDropShadow dx="1.2" dy="1.8" stdDeviation="1.1" flood-color="#5e4017" flood-opacity=".75"/>
+      <filter id="bevel" x="-15%" y="-15%" width="130%" height="130%">
+        <feGaussianBlur in="SourceAlpha" stdDeviation="3.2" result="b"/>
+        <feSpecularLighting in="b" surfaceScale="6" specularConstant="1" specularExponent="24" lighting-color="#fff4cf" result="s">
+          <feDistantLight azimuth="235" elevation="48"/>
+        </feSpecularLighting>
+        <feComposite in="s" in2="SourceAlpha" operator="in" result="si"/>
+        <feComposite in="SourceGraphic" in2="si" operator="arithmetic" k1="0" k2="1" k3=".85" k4="0"/>
       </filter>
     </defs>
-    <circle cx="100" cy="100" r="82" fill="url(#gold)" filter="url(#rough)"/>
-    <circle cx="100" cy="100" r="64" fill="none" stroke="#a37d41" stroke-width="2.5" opacity=".7"/>
-    <circle cx="100" cy="100" r="62" fill="none" stroke="#f6e2b0" stroke-width="1.2" opacity=".6"/>
-    <g filter="url(#inset)" fill="none" stroke="#e9cd8e" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M100 142 C62 114 54 92 58 76 C62 60 84 56 100 76 C116 56 138 60 142 76 C146 92 138 114 100 142Z"/>
-      <path d="M100 128 C74 108 70 94 73 84 C76 74 90 73 100 88 C110 73 124 74 127 84 C130 94 126 108 100 128Z" stroke-width="3.5"/>
+    <g filter="url(#bevel)"><g filter="url(#rough)">
+      <circle cx="100" cy="100" r="80" fill="url(#gold)"/>
+    </g></g>
+    <circle cx="100" cy="100" r="62" fill="url(#gold2)"/>
+    <circle cx="100" cy="100" r="62" fill="none" stroke="#8b6429" stroke-width="2.4" opacity=".75"/>
+    <circle cx="101" cy="101.5" r="60.5" fill="none" stroke="#f7e3a8" stroke-width="1.4" opacity=".7"/>
+    <!-- engraved, hand-drawn double heart -->
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <g transform="translate(1.3 1.6)" stroke="#f8e6ad" stroke-width="4.2" opacity=".85">
+        <path d="M100 140 C69 117 50 99 53 78 C56 59 83 55 100 78 C118 56 145 62 147 81 C149 100 129 118 100 140"/>
+        <path d="M100 127 C78 111 65 96 68 82 C71 69 89 68 100 86 C112 68 131 72 133 84 C135 97 121 111 100 127"/>
+      </g>
+      <g stroke="#7f5a22" stroke-width="4.2">
+        <path d="M100 140 C69 117 50 99 53 78 C56 59 83 55 100 78 C118 56 145 62 147 81 C149 100 129 118 100 140"/>
+        <path d="M100 127 C78 111 65 96 68 82 C71 69 89 68 100 86 C112 68 131 72 133 84 C135 97 121 111 100 127"/>
+      </g>
     </g>
   </svg>
  
