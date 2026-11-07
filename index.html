@@ -1,1 +1,583 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Էգիի 25-ամյակի հրավիրատոմս</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Armenian:wght@400;600;700&family=Noto+Sans+Armenian:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --burgundy: #722F40;
+            --burgundy-dark: #5a2533;
+            --cream: #F7F0E6;
+            --cream-dark: #EBE0D0;
+            --gold: #C6A46A;
+            --gold-light: #E5CFA0;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #1a1a1a;
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(114, 47, 64, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(198, 164, 106, 0.1) 0%, transparent 50%);
+            font-family: 'Noto Sans Armenian', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* Paper Texture Overlay */
+        .paper-texture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            z-index: 1000;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* 3D Scene */
+        .scene {
+            width: 100%;
+            max-width: 500px;
+            height: 750px;
+            perspective: 1500px;
+            position: relative;
+        }
+
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        /* Cover Styling */
+        .cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.1'/%3E%3C/svg%3E");
+            border-radius: 12px;
+            transform-origin: left center;
+            transition: transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 2.5s ease;
+            box-shadow: 
+                inset 0 0 40px rgba(114, 47, 64, 0.08),
+                5px 5px 20px rgba(0, 0, 0, 0.3),
+                inset 2px 0 5px rgba(255, 255, 255, 0.5);
+            border: 1px solid var(--gold);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            backface-visibility: hidden;
+        }
+
+        .cover::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .cover.open {
+            transform: rotateY(-165deg);
+            box-shadow: 
+                inset 0 0 40px rgba(114, 47, 64, 0.08),
+                15px 5px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Embossed Heart */
+        .embossed-heart {
+            width: 120px;
+            height: 120px;
+            filter: drop-shadow(2px 4px 6px rgba(114, 47, 64, 0.4)) 
+                    drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.9));
+            animation: subtlePulse 4s ease-in-out infinite;
+        }
+
+        .embossed-heart svg {
+            width: 100%;
+            height: 100%;
+            fill: var(--burgundy);
+        }
+
+        @keyframes subtlePulse {
+            0%, 100% { transform: scale(1); filter: drop-shadow(2px 4px 6px rgba(114, 47, 64, 0.4)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.9)); }
+            50% { transform: scale(1.02); filter: drop-shadow(3px 5px 8px rgba(114, 47, 64, 0.5)) drop-shadow(-1px -1px 3px rgba(255, 255, 255, 1)); }
+        }
+
+        /* Inside Content */
+        .inside {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: var(--cream);
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+            border-radius: 12px;
+            box-shadow: 
+                inset 0 0 60px rgba(114, 47, 64, 0.05),
+                0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--gold);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 5;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .card.open .inside {
+            opacity: 1;
+            transform: translateX(0);
+            transition-delay: 0.6s;
+        }
+
+        .inside-content {
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .inside-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid var(--gold);
+            border-radius: 8px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        /* Typography */
+        .invite-text {
+            font-family: 'Noto Sans Armenian', sans-serif;
+            font-size: 0.95rem;
+            color: var(--gold);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .main-title {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 2.2rem;
+            color: var(--burgundy);
+            font-weight: 700;
+            margin-bottom: 30px;
+            line-height: 1.3;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Photo Frames */
+        .photo-frame {
+            margin: 25px auto;
+            max-width: 320px;
+            position: relative;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-light) 100%);
+            border-radius: 4px;
+            box-shadow: 0 8px 20px rgba(114, 47, 64, 0.15);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 2px;
+            border: 2px solid var(--burgundy);
+            object-fit: cover;
+            background-color: var(--cream-dark);
+        }
+
+        .photo-caption {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 1.05rem;
+            color: var(--burgundy);
+            font-style: italic;
+            margin-top: 15px;
+            line-height: 1.6;
+            font-weight: 400;
+        }
+
+        /* Calendar */
+        .calendar-section {
+            margin: 35px 0;
+            padding: 25px 20px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 8px;
+            border: 1px solid rgba(198, 164, 106, 0.3);
+        }
+
+        .calendar-title {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 1.4rem;
+            color: var(--burgundy);
+            margin-bottom: 20px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 0.95rem;
+            color: var(--burgundy);
+            position: relative;
+        }
+
+        .calendar-day.header {
+            color: var(--gold);
+            font-weight: 600;
+            font-size: 0.85rem;
+            font-family: 'Noto Sans Armenian', sans-serif;
+        }
+
+        .calendar-day.heart-day {
+            color: var(--cream);
+            font-weight: 700;
+            font-size: 1.1rem;
+            z-index: 2;
+        }
+
+        .calendar-day.heart-day .heart-bg {
+            position: absolute;
+            width: 140%;
+            height: 140%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            fill: var(--burgundy);
+            filter: drop-shadow(0 2px 4px rgba(114, 47, 64, 0.3));
+            z-index: -1;
+            animation: heartBeat 2s ease-in-out infinite;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); }
+            50% { transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* Location */
+        .location-section {
+            margin: 35px 0;
+            padding: 25px;
+            border-top: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            position: relative;
+        }
+
+        .location-icon {
+            width: 32px;
+            height: 32px;
+            fill: var(--gold);
+            margin-bottom: 10px;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+
+        .location-title {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 1.2rem;
+            color: var(--burgundy);
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .location-text {
+            font-family: 'Noto Sans Armenian', sans-serif;
+            font-size: 1.1rem;
+            color: var(--burgundy-dark);
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .location-text .en {
+            font-family: 'Noto Serif Armenian', serif; /* Using Armenian serif for elegant Latin letters */
+            font-style: italic;
+            color: var(--burgundy);
+        }
+
+        /* Closing */
+        .closing-section {
+            margin-top: 35px;
+        }
+
+        .closing-text {
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 1.05rem;
+            color: var(--burgundy);
+            line-height: 1.8;
+            font-weight: 400;
+            text-align: justify;
+            text-align-last: center;
+            padding: 0 10px;
+        }
+
+        /* Sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--gold);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleAnim 3s infinite ease-in-out;
+        }
+
+        @keyframes sparkleAnim {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
+        /* Scrollbar styling for inside */
+        .inside::-webkit-scrollbar {
+            width: 6px;
+        }
+        .inside::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .inside::-webkit-scrollbar-thumb {
+            background: var(--gold);
+            border-radius: 3px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 480px) {
+            .scene {
+                height: 700px;
+            }
+            .main-title {
+                font-size: 1.8rem;
+            }
+            .inside-content {
+                padding: 30px 20px;
+            }
+            .calendar-grid {
+                max-width: 260px;
+                gap: 4px;
+            }
+            .calendar-day {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Loading state */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--cream);
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease;
+        }
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="paper-texture"></div>
+    
+    <div class="loading-overlay" id="loader">
+        <div class="embossed-heart" style="width: 80px; height: 80px;">
+            <svg viewBox="0 0 100 100"><path d="M50 85 C50 85, 20 60, 20 40 C20 25, 30 15, 45 15 C50 15, 50 25, 50 25 C50 25, 50 15, 55 15 C70 15, 80 25, 80 40 C80 60, 50 85, 50 85 Z"/></svg>
+        </div>
+    </div>
+
+    <div class="scene">
+        <div class="card" id="card">
+            <!-- Front Cover -->
+            <div class="cover" id="cover">
+                <div class="embossed-heart">
+                    <svg viewBox="0 0 100 100">
+                        <path d="M50 85 C50 85, 20 60, 20 40 C20 25, 30 15, 45 15 C50 15, 50 25, 50 25 C50 25, 50 15, 55 15 C70 15, 80 25, 80 40 C80 60, 50 85, 50 85 Z"/>
+                    </svg>
+                </div>
+                <!-- Decorative sparkles on cover -->
+                <div class="sparkle" style="top: 20%; left: 20%; animation-delay: 0s;"></div>
+                <div class="sparkle" style="top: 30%; right: 25%; animation-delay: 1s;"></div>
+                <div class="sparkle" style="bottom: 25%; left: 30%; animation-delay: 2s;"></div>
+            </div>
+
+            <!-- Inside Content -->
+            <div class="inside">
+                <div class="inside-content">
+                    <!-- Sparkles inside -->
+                    <div class="sparkle" style="top: 10%; right: 15%; animation-delay: 0.5s;"></div>
+                    <div class="sparkle" style="top: 40%; left: 10%; animation-delay: 1.5s;"></div>
+                    <div class="sparkle" style="bottom: 20%; right: 20%; animation-delay: 2.5s;"></div>
+
+                    <div class="invite-text">Սիրով հրավիրում եմ Ձեզ</div>
+                    <h1 class="main-title">Էգիի 25-ամյակին</h1>
+
+                    <!-- Personal Photo -->
+                    <div class="photo-frame">
+                        <img src="https://cdn.shopify.com/s/files/1/0823/7973/5298/files/97525982-73F3-49F6-94EA-904AB2921461.png?v=1794051521" alt="Անձնական լուսանկար">
+                    </div>
+                    <p class="photo-caption">Ձեր ժպիտներն ու ջերմությունը կլինեն իմ օրվա լավագույն նվերը։</p>
+
+                    <!-- Calendar -->
+                    <div class="calendar-section">
+                        <div class="calendar-title">Նոյեմբերի 15</div>
+                        <div class="calendar-grid">
+                            <div class="calendar-day header">Երկ</div>
+                            <div class="calendar-day header">Երք</div>
+                            <div class="calendar-day header">Չոր</div>
+                            <div class="calendar-day header">Հնգ</div>
+                            <div class="calendar-day header">Ուրբ</div>
+                            <div class="calendar-day header">Շաբ</div>
+                            <div class="calendar-day header">Կիր</div>
+                            
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day"></div>
+                            <div class="calendar-day">1</div>
+                            <div class="calendar-day">2</div>
+                            <div class="calendar-day">3</div>
+                            
+                            <div class="calendar-day">4</div>
+                            <div class="calendar-day">5</div>
+                            <div class="calendar-day">6</div>
+                            <div class="calendar-day">7</div>
+                            <div class="calendar-day">8</div>
+                            <div class="calendar-day">9</div>
+                            <div class="calendar-day">10</div>
+                            
+                            <div class="calendar-day">11</div>
+                            <div class="calendar-day">12</div>
+                            <div class="calendar-day">13</div>
+                            <div class="calendar-day">14</div>
+                            <div class="calendar-day heart-day">
+                                <svg class="heart-bg" viewBox="0 0 100 100"><path d="M50 85 C50 85, 20 60, 20 40 C20 25, 30 15, 45 15 C50 15, 50 25, 50 25 C50 25, 50 15, 55 15 C70 15, 80 25, 80 40 C80 60, 50 85, 50 85 Z"/></svg>
+                                <span>15</span>
+                            </div>
+                            <div class="calendar-day">16</div>
+                            <div class="calendar-day">17</div>
+                            
+                            <div class="calendar-day">18</div>
+                            <div class="calendar-day">19</div>
+                            <div class="calendar-day">20</div>
+                            <div class="calendar-day">21</div>
+                            <div class="calendar-day">22</div>
+                            <div class="calendar-day">23</div>
+                            <div class="calendar-day">24</div>
+                            
+                            <div class="calendar-day">25</div>
+                            <div class="calendar-day">26</div>
+                            <div class="calendar-day">27</div>
+                            <div class="calendar-day">28</div>
+                            <div class="calendar-day">29</div>
+                            <div class="calendar-day">30</div>
+                            <div class="calendar-day"></div>
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div class="location-section">
+                        <svg class="location-icon" viewBox="0 0 24 24">
+                            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                        </svg>
+                        <div class="location-title">Մեր հանդիպման վայրը</div>
+                        <div class="location-text">
+                            <span class="en">Noma Rooftop Restaurant</span><br>
+                            <span class="en">Tigran Mets 17/4</span>
+                        </div>
+                    </div>
+
+                    <!-- Family Photo & Closing -->
+                    <div class="closing-section">
+                        <div class="photo-frame">
+                            <img src="https://cdn.shopify.com/s/files/1/0823/7973/5298/files/33AEC792-0C30-4F33-B208-D63CCD51384C.png?v=1794051664" alt="Ընտանեկան լուսանկար">
+                        </div>
+                        <p class="closing-text">
+                            Մեր կյանքի ամենագեղեցիկ պատմությունները գրվում են սիրելի մարդկանց ներկայությամբ՝ ընտանիքի անսահման սիրով և ընկերների անկեղծ ժպիտներով։
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-open animation sequence
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            const card = document.getElementById('card');
+            const cover = document.getElementById('cover');
+            
+            // Hide loader smoothly
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 500);
+
+            // Trigger card opening after 1.5 seconds
+            setTimeout(() => {
+                cover.classList.add('open');
+                card.classList.add('open');
+            }, 1500);
+        });
+
+        // Add subtle parallax effect to sparkles on mouse move (desktop) or device orientation (mobile)
+        document.addEventListener('mousemove', (e) => {
+            const sparkles = document.querySelectorAll('.sparkle');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            sparkles.forEach((sparkle, index) => {
+                const speed = (index + 1) * 10;
+                const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
+                const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
+                sparkle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
