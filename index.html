@@ -38,7 +38,7 @@
             overflow-x: hidden;
         }
 
-        /* Paper Texture Overlay */
+        /* Թղթի իրական տեքստուրա ամբողջ էկրանի համար */
         .paper-texture {
             position: fixed;
             top: 0;
@@ -46,15 +46,15 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            opacity: 0.03;
+            opacity: 0.04;
             z-index: 1000;
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* 3D Scene */
+        /* 3D Տեսարան */
         .scene {
             width: 100%;
-            max-width: 500px;
+            max-width: 480px;
             height: 750px;
             perspective: 1500px;
             position: relative;
@@ -68,7 +68,7 @@
             transition: transform 0.5s ease;
         }
 
-        /* Cover Styling */
+        /* Բացիկի կափարիչ (Փակ վիճակ) */
         .cover {
             position: absolute;
             width: 100%;
@@ -80,7 +80,7 @@
             transition: transform 2.5s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 2.5s ease;
             box-shadow: 
                 inset 0 0 40px rgba(114, 47, 64, 0.08),
-                5px 5px 20px rgba(0, 0, 0, 0.3),
+                8px 8px 25px rgba(0, 0, 0, 0.4),
                 inset 2px 0 5px rgba(255, 255, 255, 0.5);
             border: 1px solid var(--gold);
             display: flex;
@@ -94,13 +94,13 @@
         .cover::before {
             content: '';
             position: absolute;
-            top: 15px;
-            left: 15px;
-            right: 15px;
-            bottom: 15px;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
             border: 1px solid var(--gold);
             border-radius: 8px;
-            opacity: 0.6;
+            opacity: 0.5;
             pointer-events: none;
         }
 
@@ -111,11 +111,11 @@
                 15px 5px 30px rgba(0, 0, 0, 0.2);
         }
 
-        /* Embossed Heart */
+        /* Դաջված սիրտ (Embossed Heart) */
         .embossed-heart {
-            width: 120px;
-            height: 120px;
-            filter: drop-shadow(2px 4px 6px rgba(114, 47, 64, 0.4)) 
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(2px 3px 4px rgba(114, 47, 64, 0.5)) 
                     drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.9));
             animation: subtlePulse 4s ease-in-out infinite;
         }
@@ -127,11 +127,11 @@
         }
 
         @keyframes subtlePulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(2px 4px 6px rgba(114, 47, 64, 0.4)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.9)); }
-            50% { transform: scale(1.02); filter: drop-shadow(3px 5px 8px rgba(114, 47, 64, 0.5)) drop-shadow(-1px -1px 3px rgba(255, 255, 255, 1)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(2px 3px 4px rgba(114, 47, 64, 0.5)) drop-shadow(-1px -1px 2px rgba(255, 255, 255, 0.9)); }
+            50% { transform: scale(1.03); filter: drop-shadow(3px 4px 6px rgba(114, 47, 64, 0.6)) drop-shadow(-1px -1px 3px rgba(255, 255, 255, 1)); }
         }
 
-        /* Inside Content */
+        /* Բացիկի ներսի հատված */
         .inside {
             position: absolute;
             width: 100%;
@@ -147,18 +147,18 @@
             overflow-x: hidden;
             z-index: 5;
             opacity: 0;
-            transform: translateX(20px);
+            transform: translateX(30px);
             transition: opacity 1.5s ease, transform 1.5s ease;
         }
 
         .card.open .inside {
             opacity: 1;
             transform: translateX(0);
-            transition-delay: 0.6s;
+            transition-delay: 0.8s;
         }
 
         .inside-content {
-            padding: 40px 30px;
+            padding: 40px 30px 50px;
             text-align: center;
             position: relative;
         }
@@ -172,14 +172,14 @@
             bottom: 20px;
             border: 1px solid var(--gold);
             border-radius: 8px;
-            opacity: 0.4;
+            opacity: 0.3;
             pointer-events: none;
         }
 
-        /* Typography */
+        /* Տիպոգրաֆիկա */
         .invite-text {
             font-family: 'Noto Sans Armenian', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--gold);
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -197,12 +197,12 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
-        /* Photo Frames */
+        /* Լուսանկարների շրջանակներ */
         .photo-frame {
             margin: 25px auto;
-            max-width: 320px;
+            max-width: 300px;
             position: relative;
-            padding: 8px;
+            padding: 6px;
             background: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-light) 100%);
             border-radius: 4px;
             box-shadow: 0 8px 20px rgba(114, 47, 64, 0.15);
@@ -228,7 +228,7 @@
             font-weight: 400;
         }
 
-        /* Calendar */
+        /* Օրացույց */
         .calendar-section {
             margin: 35px 0;
             padding: 25px 20px;
@@ -250,7 +250,7 @@
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             gap: 6px;
-            max-width: 300px;
+            max-width: 280px;
             margin: 0 auto;
         }
 
@@ -260,7 +260,7 @@
             align-items: center;
             justify-content: center;
             font-family: 'Noto Serif Armenian', serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--burgundy);
             position: relative;
         }
@@ -268,7 +268,7 @@
         .calendar-day.header {
             color: var(--gold);
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-family: 'Noto Sans Armenian', sans-serif;
         }
 
@@ -281,13 +281,13 @@
 
         .calendar-day.heart-day .heart-bg {
             position: absolute;
-            width: 140%;
-            height: 140%;
+            width: 150%;
+            height: 150%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             fill: var(--burgundy);
-            filter: drop-shadow(0 2px 4px rgba(114, 47, 64, 0.3));
+            filter: drop-shadow(0 2px 4px rgba(114, 47, 64, 0.4));
             z-index: -1;
             animation: heartBeat 2s ease-in-out infinite;
         }
@@ -297,7 +297,7 @@
             50% { transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* Location */
+        /* Հասցեի հատված */
         .location-section {
             margin: 35px 0;
             padding: 25px;
@@ -324,19 +324,29 @@
 
         .location-text {
             font-family: 'Noto Sans Armenian', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--burgundy-dark);
             line-height: 1.6;
             font-weight: 500;
         }
 
         .location-text .en {
-            font-family: 'Noto Serif Armenian', serif; /* Using Armenian serif for elegant Latin letters */
+            font-family: 'Noto Serif Armenian', serif;
             font-style: italic;
             color: var(--burgundy);
+            font-size: 1.1rem;
         }
 
-        /* Closing */
+        .time-text {
+            margin-top: 10px;
+            font-family: 'Noto Serif Armenian', serif;
+            font-size: 1.1rem;
+            color: var(--gold);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Եզրափակիչ հատված */
         .closing-section {
             margin-top: 35px;
         }
@@ -352,7 +362,7 @@
             padding: 0 10px;
         }
 
-        /* Sparkles */
+        /* Ոսկեգույն փայլեր (Sparkles) */
         .sparkle {
             position: absolute;
             width: 4px;
@@ -368,19 +378,19 @@
             50% { opacity: 1; transform: scale(1) rotate(180deg); }
         }
 
-        /* Scrollbar styling for inside */
+        /* Scrollbar ոճավորում */
         .inside::-webkit-scrollbar {
-            width: 6px;
+            width: 4px;
         }
         .inside::-webkit-scrollbar-track {
             background: transparent;
         }
         .inside::-webkit-scrollbar-thumb {
             background: var(--gold);
-            border-radius: 3px;
+            border-radius: 2px;
         }
 
-        /* Responsive adjustments */
+        /* Responsive կարգավորումներ */
         @media (max-width: 480px) {
             .scene {
                 height: 700px;
@@ -389,7 +399,7 @@
                 font-size: 1.8rem;
             }
             .inside-content {
-                padding: 30px 20px;
+                padding: 30px 20px 40px;
             }
             .calendar-grid {
                 max-width: 260px;
@@ -400,7 +410,7 @@
             }
         }
 
-        /* Loading state */
+        /* Բեռնման էֆեկտ */
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -412,7 +422,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease;
         }
         .loading-overlay.hidden {
             opacity: 0;
@@ -432,23 +442,22 @@
 
     <div class="scene">
         <div class="card" id="card">
-            <!-- Front Cover -->
+            <!-- Փակ բացիկի կափարիչ -->
             <div class="cover" id="cover">
                 <div class="embossed-heart">
                     <svg viewBox="0 0 100 100">
                         <path d="M50 85 C50 85, 20 60, 20 40 C20 25, 30 15, 45 15 C50 15, 50 25, 50 25 C50 25, 50 15, 55 15 C70 15, 80 25, 80 40 C80 60, 50 85, 50 85 Z"/>
                     </svg>
                 </div>
-                <!-- Decorative sparkles on cover -->
+                <!-- Դեկորատիվ փայլեր -->
                 <div class="sparkle" style="top: 20%; left: 20%; animation-delay: 0s;"></div>
                 <div class="sparkle" style="top: 30%; right: 25%; animation-delay: 1s;"></div>
                 <div class="sparkle" style="bottom: 25%; left: 30%; animation-delay: 2s;"></div>
             </div>
 
-            <!-- Inside Content -->
+            <!-- Բացիկի ներսի բովանդակություն -->
             <div class="inside">
                 <div class="inside-content">
-                    <!-- Sparkles inside -->
                     <div class="sparkle" style="top: 10%; right: 15%; animation-delay: 0.5s;"></div>
                     <div class="sparkle" style="top: 40%; left: 10%; animation-delay: 1.5s;"></div>
                     <div class="sparkle" style="bottom: 20%; right: 20%; animation-delay: 2.5s;"></div>
@@ -456,13 +465,13 @@
                     <div class="invite-text">Սիրով հրավիրում եմ Ձեզ</div>
                     <h1 class="main-title">Էգիի 25-ամյակին</h1>
 
-                    <!-- Personal Photo -->
+                    <!-- Անձնական լուսանկար -->
                     <div class="photo-frame">
                         <img src="https://cdn.shopify.com/s/files/1/0823/7973/5298/files/97525982-73F3-49F6-94EA-904AB2921461.png?v=1794051521" alt="Անձնական լուսանկար">
                     </div>
                     <p class="photo-caption">Ձեր ժպիտներն ու ջերմությունը կլինեն իմ օրվա լավագույն նվերը։</p>
 
-                    <!-- Calendar -->
+                    <!-- Օրացույց -->
                     <div class="calendar-section">
                         <div class="calendar-title">Նոյեմբերի 15</div>
                         <div class="calendar-grid">
@@ -519,7 +528,7 @@
                         </div>
                     </div>
 
-                    <!-- Location -->
+                    <!-- Հանդիպման վայրը -->
                     <div class="location-section">
                         <svg class="location-icon" viewBox="0 0 24 24">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
@@ -529,9 +538,10 @@
                             <span class="en">Noma Rooftop Restaurant</span><br>
                             <span class="en">Tigran Mets 17/4</span>
                         </div>
+                        <div class="time-text">17:30 - 18:00</div>
                     </div>
 
-                    <!-- Family Photo & Closing -->
+                    <!-- Ընտանեկան լուսանկար և եզրափակիչ խոսք -->
                     <div class="closing-section">
                         <div class="photo-frame">
                             <img src="https://cdn.shopify.com/s/files/1/0823/7973/5298/files/33AEC792-0C30-4F33-B208-D63CCD51384C.png?v=1794051664" alt="Ընտանեկան լուսանկար">
@@ -547,32 +557,32 @@
     </div>
 
     <script>
-        // Auto-open animation sequence
+        // Ինքնուրույն բացման անիմացիա
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
             const card = document.getElementById('card');
             const cover = document.getElementById('cover');
             
-            // Hide loader smoothly
+            // Թաքցնել բեռնման էկրանը
             setTimeout(() => {
                 loader.classList.add('hidden');
             }, 500);
 
-            // Trigger card opening after 1.5 seconds
+            // Բացիկի ինքնուրույն բացումը 1.5 վայրկյան անց (առանց սեղմելու)
             setTimeout(() => {
                 cover.classList.add('open');
                 card.classList.add('open');
             }, 1500);
         });
 
-        // Add subtle parallax effect to sparkles on mouse move (desktop) or device orientation (mobile)
+        // Նուրբ պարալաքս էֆեկտ փայլերի համար (մկնիկի շարժման դեպքում)
         document.addEventListener('mousemove', (e) => {
             const sparkles = document.querySelectorAll('.sparkle');
             const x = e.clientX / window.innerWidth;
             const y = e.clientY / window.innerHeight;
             
             sparkles.forEach((sparkle, index) => {
-                const speed = (index + 1) * 10;
+                const speed = (index + 1) * 8;
                 const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
                 const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
                 sparkle.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
